@@ -1,0 +1,81 @@
+<h2 class="py-3">Список покупателей</h2>
+
+<table class="table table-striped">
+  <ng-container *ngTemplateOutlet=tableHeadBlock></ng-container>
+
+  <tbody>
+    <tr *ngFor="let customer of httpService.customers; let i=index">
+      <th scope="row">{{i + 1}}</th>
+
+      <ng-container *ngTemplateOutlet="isEditPos === i ? thenBlock : elseBlock; context: {$implicit: customer}"></ng-container>
+
+      <ng-container *ngTemplateOutlet="customerControlsBlock; context: {customer: customer, index: i}"></ng-container>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #tableHeadBlock>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">id</th>
+      <th scope="col">summ</th>
+      <th scope="col">currency</th>
+      <th scope="col">name</th>
+      <th scope="col">lastName</th>
+      <th scope="col">time</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+</ng-template>
+
+<ng-template #thenBlock let-customer>
+  <td>
+    <input #id (blur)="setValue('id', id.value, customer.id)"
+     class="form-control form-contol-sm" type="text" value="{{customer.id}}">
+  </td>
+  <td>
+    <input #summ (blur)="setValue('summ', summ.value, customer.summ)"
+     class="form-control form-contol-sm" type="text" value="{{customer.summ}}">
+  </td>
+  <td>
+    <input #currency (blur)="setValue('currency', currency.value, customer.currency)"
+     class="form-control form-contol-sm" type="text" value="{{customer.currency}}">
+  </td>
+  <td>
+    <input #name (blur)="setValue('name', name.value, customer.name)"
+     class="form-control form-contol-sm" type="text" value="{{customer.name}}">
+  </td>
+  <td>
+    <input #lastName (blur)="setValue('lastName', lastName.value, customer.lastName)"
+     class="form-control form-contol-sm" type="text" value="{{customer.lastName}}">
+  </td>
+  <td>
+    <input #time (blur)="setValue('time', time.value, customer.time)"
+     class="form-control form-contol-sm" type="text" value="{{customer.time}}">
+  </td>
+</ng-template>
+
+<ng-template #elseBlock let-customer>
+  <td>  {{customer.id}}</td>
+  <td>  {{customer.summ}}</td>
+  <td>  {{customer.currency}}</td>
+  <td>  {{customer.name}}</td>
+  <td>  {{customer.lastName}}</td>
+  <td>  {{customer.time}}</td>
+</ng-template>
+
+<ng-template #customerControlsBlock let-customer="customer" let-i="index">
+  <td class="controls">
+    <button (click)="editCustomer(i)"
+    *ngIf="isEditPos !== i" 
+    class="btn btn-outline-info btn-sm ms-2" type="button"><i class="fas fa-edit"></i></button>
+    <button (click)="cancelEdit()"
+    *ngIf="isEditPos === i" 
+    class="btn btn-outline-info btn-sm ms-2" type="button"><i class="fas fa-undo"></i></button>
+    <button (click)="saveCustomer(customer, i)"
+    *ngIf="isEditPos === i" 
+    class="btn btn-outline-info btn-sm ms-2" type="button"><i class="fas fa-save"></i></button>
+    <button (click)="deleteCustomer(customer)" class="btn btn-outline-info btn-sm ms-2" type="button"><i class="fas fa-trash"></i></button>
+  </td>
+</ng-template>

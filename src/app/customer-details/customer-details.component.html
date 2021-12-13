@@ -1,0 +1,37 @@
+<h2 class="py-3">Добавить покупателя</h2>
+
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div class="mb-3">
+    <label class="form-label" for="id">id</label>
+    <input class="form-control" id="id" placeholder="id" type="text" formControlName="id">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="summ">summ</label>
+    <input class="form-control" id="summ" placeholder="summ" type="text" formControlName="summ">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="currency">currency</label>
+    <input class="form-control" id="currency" placeholder="currency" type="text" formControlName="currency">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="name">name</label>
+    <input class="form-control" id="name" placeholder="name" type="text" formControlName="name">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="lastName">lastName</label>
+    <input class="form-control" id="lastName" placeholder="lastName" type="text" formControlName="lastName">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="time">time</label>
+    <input class="form-control" id="time" placeholder="time" type="text" formControlName="time">
+  </div>
+
+  <div class="mb-3">
+    <button [disabled]="form.invalid" class="btn btn-info">Сохранить</button>
+  </div>
+</form>
